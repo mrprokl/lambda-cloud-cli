@@ -1,0 +1,87 @@
+[project]
+name = "lambda-cloud-cli"
+version = "0.1.0"
+description = "Unofficial community command-line interface for the Lambda Cloud API"
+readme = "README.md"
+requires-python = ">=3.10"
+license = { text = "MIT" }
+authors = [{ name = "Thomas Gomez" }]
+keywords = ["lambda", "lambda-labs", "cloud", "gpu", "cli"]
+classifiers = [
+    "Environment :: Console",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Topic :: System :: Systems Administration",
+]
+dependencies = [
+    "httpx>=0.27",
+    "typer>=0.12",
+    "rich>=13",
+    "pydantic>=2",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=8",
+    "respx>=0.21",
+    "pytest-cov>=5",
+]
+
+[project.urls]
+Homepage = "https://github.com/mrprokl/lambda-cloud-cli"
+Repository = "https://github.com/mrprokl/lambda-cloud-cli"
+Issues = "https://github.com/mrprokl/lambda-cloud-cli/issues"
+Changelog = "https://github.com/mrprokl/lambda-cloud-cli/blob/main/CHANGELOG.md"
+Documentation = "https://docs.lambda.ai/public-cloud/"
+
+[project.scripts]
+lambda-cloud = "lambda_cloud.cli.app:main"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/lambda_cloud"]
+
+[tool.ruff]
+target-version = "py310"
+line-length = 100
+src = ["src", "tests"]
+
+[tool.ruff.lint]
+select = [
+    "E",   # pycodestyle errors
+    "W",   # pycodestyle warnings
+    "F",   # pyflakes
+    "I",   # isort
+    "B",   # flake8-bugbear
+    "UP",  # pyupgrade
+    "SIM", # flake8-simplify
+    "T20", # no print() outside of Typer/rich wrappers
+]
+
+[tool.ruff.lint.per-file-ignores]
+# typer.Option()/typer.Argument() in argument defaults is the idiomatic Typer API.
+"src/lambda_cloud/cli/**" = ["B008"]
+"tests/**" = ["B011", "B017"]
+
+[tool.ruff.lint.isort]
+known-first-party = ["lambda_cloud"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-q"
+pythonpath = ["."]
+
+[tool.coverage.run]
+source = ["src/lambda_cloud"]
+branch = true
+
+[tool.coverage.report]
+exclude_also = ["if TYPE_CHECKING:", "raise typer.Exit"]
