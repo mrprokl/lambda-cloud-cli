@@ -253,7 +253,7 @@ wheels = [
 ]
 
 [[package]]
-name = "lambda-cloud-cli"
+name = "lambda-cloud"
 version = "0.1.0"
 source = { editable = "." }
 dependencies = [

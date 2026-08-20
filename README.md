@@ -1,6 +1,7 @@
 # lambda-cloud-cli
 
 [![CI](https://github.com/mrprokl/lambda-cloud-cli/actions/workflows/ci.yml/badge.svg)](https://github.com/mrprokl/lambda-cloud-cli/actions/workflows/ci.yml)
+[![PyPI](https://img.shields.io/pypi/v/lambda-cloud)](https://pypi.org/project/lambda-cloud/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
 [![Python](https://img.shields.io/badge/python-3.10%2B-blue.svg)](pyproject.toml)
 
@@ -17,13 +18,13 @@ Requires Python 3.10+.
 
 ```bash
 # Option 1 — uv (recommended)
-uv tool install lambda-cloud-cli
+uv tool install lambda-cloud
 
 # Option 2 — pipx
-pipx install lambda-cloud-cli
+pipx install lambda-cloud
 
 # Option 3 — plain pip
-pip install lambda-cloud-cli
+pip install lambda-cloud
 
 # Option 4 — straight from GitHub (bleeding edge)
 uv tool install git+https://github.com/mrprokl/lambda-cloud-cli
