@@ -95,10 +95,14 @@ class TestCommands:
         result = runner.invoke(
             cli_app,
             [
-                "instances", "launch",
-                "--type", "gpu_1x_a10",
-                "--region", "us-west-1",
-                "--ssh-key", "my-key",
+                "instances",
+                "launch",
+                "--type",
+                "gpu_1x_a10",
+                "--region",
+                "us-west-1",
+                "--ssh-key",
+                "my-key",
                 "-y",
             ],
         )
@@ -113,11 +117,16 @@ class TestCommands:
         result = runner.invoke(
             cli_app,
             [
-                "instances", "launch",
-                "--type", "gpu_1x_a10",
-                "--region", "us-west-1",
-                "--ssh-key", "my-key",
-                "--tag", "env=prod",
+                "instances",
+                "launch",
+                "--type",
+                "gpu_1x_a10",
+                "--region",
+                "us-west-1",
+                "--ssh-key",
+                "my-key",
+                "--tag",
+                "env=prod",
                 "--yes",
             ],
         )
@@ -131,17 +140,11 @@ class TestCommands:
         assert body["tags"] == [{"key": "env", "value": "prod"}]
 
     @respx.mock
-    def test_terminate_aborts_without_confirmation(
-        self, runner: CliRunner, cli_app
-    ):
+    def test_terminate_aborts_without_confirmation(self, runner: CliRunner, cli_app):
         route = respx.post(f"{BASE_URL}/instance-operations/terminate").mock(
-            return_value=httpx.Response(
-                200, json={"data": {"terminated_instances": []}}
-            )
+            return_value=httpx.Response(200, json={"data": {"terminated_instances": []}})
         )
-        result = runner.invoke(
-            cli_app, ["instances", "terminate", "some-id"], input="n\n"
-        )
+        result = runner.invoke(cli_app, ["instances", "terminate", "some-id"], input="n\n")
         assert result.exit_code == 0
         assert "Aborted" in result.output
         assert route.call_count == 0
@@ -165,9 +168,7 @@ class TestCommands:
         route = respx.post(f"{BASE_URL}/instances/some-id").mock(
             return_value=httpx.Response(200, json={"data": {}})
         )
-        result = runner.invoke(
-            cli_app, ["instances", "rename", "some-id", "--name", "new-name"]
-        )
+        result = runner.invoke(cli_app, ["instances", "rename", "some-id", "--name", "new-name"])
         assert result.exit_code == 0
         import json as std_json
 
@@ -178,9 +179,7 @@ class TestCommands:
         respx.get(f"{BASE_URL}/instances").mock(
             return_value=httpx.Response(
                 401,
-                json={
-                    "error": {"code": "global/invalid-api-key", "message": "Invalid API key"}
-                },
+                json={"error": {"code": "global/invalid-api-key", "message": "Invalid API key"}},
             )
         )
         result = runner.invoke(cli_app, ["instances", "list"], catch_exceptions=True)

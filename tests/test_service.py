@@ -39,9 +39,7 @@ def _audit_event(event_id: str) -> dict:
 def test_audit_follows_all_pages():
     respx.get(f"{DEFAULT_BASE_URL}/audit-events").mock(
         side_effect=[
-            httpx.Response(
-                200, json={"data": [_audit_event("e1")], "page_token": "tok1"}
-            ),
+            httpx.Response(200, json={"data": [_audit_event("e1")], "page_token": "tok1"}),
             httpx.Response(200, json={"data": [_audit_event("e2")], "page_token": None}),
         ]
     )
@@ -53,9 +51,7 @@ def test_audit_follows_all_pages():
 @respx.mock
 def test_audit_stops_after_first_page_by_default():
     respx.get(f"{DEFAULT_BASE_URL}/audit-events").mock(
-        return_value=httpx.Response(
-            200, json={"data": [_audit_event("e1")], "page_token": "tok1"}
-        )
+        return_value=httpx.Response(200, json={"data": [_audit_event("e1")], "page_token": "tok1"})
     )
     with LambdaCloudClient("k", min_interval=0) as client:
         events = service.list_audit_events(client)
@@ -79,9 +75,7 @@ def test_validate_firewall_rules_requires_ports_for_tcp():
 def test_serialize_rules_drops_none_port_range():
     rule = FirewallRule(protocol=NetworkProtocol.ICMP, source_network="0.0.0.0/0")
     payload = service.serialize_firewall_rules([rule])
-    assert payload == [
-        {"protocol": "icmp", "source_network": "0.0.0.0/0", "description": ""}
-    ]
+    assert payload == [{"protocol": "icmp", "source_network": "0.0.0.0/0", "description": ""}]
 
 
 def test_parse_instance_types_sorts_by_price(sample_instance_types):

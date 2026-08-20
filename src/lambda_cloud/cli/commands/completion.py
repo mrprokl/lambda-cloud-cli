@@ -10,8 +10,8 @@ from ..ui.console import console
 SUPPORTED_SHELLS = ("bash", "zsh", "fish", "powershell")
 
 _SNIPPETS = {
-    "bash": "eval \"$(_LAMBDA_CLOUD_COMPLETE=bash_source lambda-cloud)\"",
-    "zsh": "eval \"$(_LAMBDA_CLOUD_COMPLETE=zsh_source lambda-cloud)\"",
+    "bash": 'eval "$(_LAMBDA_CLOUD_COMPLETE=bash_source lambda-cloud)"',
+    "zsh": 'eval "$(_LAMBDA_CLOUD_COMPLETE=zsh_source lambda-cloud)"',
     "fish": "_LAMBDA_CLOUD_COMPLETE=fish_source lambda-cloud | source",
     "powershell": (
         "$env:_LAMBDA_CLOUD_COMPLETE='powershell_source'; "

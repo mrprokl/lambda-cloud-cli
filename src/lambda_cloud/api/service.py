@@ -36,9 +36,7 @@ def validate_firewall_rules(rules: list[FirewallRule]) -> None:
     """Enforce the API's port_range constraints before submitting rules."""
     for rule in rules:
         if rule.protocol is NetworkProtocol.ICMP and rule.port_range is not None:
-            raise LambdaCloudError(
-                "Firewall rule with protocol 'icmp' must not define port_range."
-            )
+            raise LambdaCloudError("Firewall rule with protocol 'icmp' must not define port_range.")
         if rule.protocol is not NetworkProtocol.ICMP and rule.port_range is None:
             raise LambdaCloudError(
                 f"Firewall rule with protocol '{rule.protocol.value}' requires "
@@ -89,9 +87,7 @@ def list_instance_types(client: LambdaCloudClient) -> list[InstanceTypeOffer]:
 # ---------------------------------------------------------------- thin wrappers
 
 
-def list_instances(
-    client: LambdaCloudClient, cluster_id: str | None = None
-) -> list[Instance]:
+def list_instances(client: LambdaCloudClient, cluster_id: str | None = None) -> list[Instance]:
     params = {"cluster_id": cluster_id} if cluster_id else None
     data = client.get("/instances", params=params)
     return [Instance.model_validate(item) for item in data]
@@ -112,9 +108,7 @@ def restart_instances(client: LambdaCloudClient, instance_ids: list[str]) -> lis
 
 
 def terminate_instances(client: LambdaCloudClient, instance_ids: list[str]) -> list[Instance]:
-    data = client.post(
-        "/instance-operations/terminate", json={"instance_ids": instance_ids}
-    )
+    data = client.post("/instance-operations/terminate", json={"instance_ids": instance_ids})
     return [Instance.model_validate(item) for item in data["terminated_instances"]]
 
 

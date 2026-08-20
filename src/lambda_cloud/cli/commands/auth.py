@@ -59,8 +59,7 @@ def whoami(ctx: typer.Context) -> None:
     source = describe_api_key_source(ctx.obj.api_key)
     if source is None:
         raise ConfigError(
-            "No API key configured. Run `lambda-cloud login` or set "
-            f"{API_KEY_ENV_VAR}."
+            f"No API key configured. Run `lambda-cloud login` or set {API_KEY_ENV_VAR}."
         )
     label, key = source
     info(f"Source: {label}")

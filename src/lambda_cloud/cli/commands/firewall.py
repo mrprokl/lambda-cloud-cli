@@ -149,9 +149,7 @@ def update_global_ruleset(
     """Replace the rules of the global firewall ruleset."""
     cmd = CommandBase(ctx)
     rules = load_rules_file(rules_file)
-    confirm_or_exit(
-        f"Replace the global firewall ruleset with {len(rules)} rule(s)?", yes
-    )
+    confirm_or_exit(f"Replace the global firewall ruleset with {len(rules)} rule(s)?", yes)
     service.update_global_firewall_ruleset(cmd.client, rules)
     if cmd.output.value == "table":
         success("Global firewall ruleset updated.")

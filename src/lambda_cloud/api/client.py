@@ -42,9 +42,7 @@ class LambdaCloudClient:
     ) -> None:
         resolved_base_url = base_url or os.environ.get(BASE_URL_ENV_VAR) or DEFAULT_BASE_URL
         if min_interval is None:
-            min_interval = float(
-                os.environ.get(MIN_INTERVAL_ENV_VAR, DEFAULT_MIN_INTERVAL_SECONDS)
-            )
+            min_interval = float(os.environ.get(MIN_INTERVAL_ENV_VAR, DEFAULT_MIN_INTERVAL_SECONDS))
         self._min_interval = min_interval
         self._max_retries = max_retries
         self._last_request_at = 0.0

@@ -81,9 +81,7 @@ class TestSSHKeys:
 class TestAuth:
     @respx.mock
     def test_login_saves_key(self, runner: CliRunner, cli_app):
-        respx.get(f"{BASE_URL}/instances").mock(
-            return_value=httpx.Response(200, json={"data": []})
-        )
+        respx.get(f"{BASE_URL}/instances").mock(return_value=httpx.Response(200, json={"data": []}))
         result = runner.invoke(cli_app, ["login", "--api-key", "fresh-key"])
         assert result.exit_code == 0
         import json as std_json
@@ -104,9 +102,7 @@ class TestAuth:
 
     @respx.mock
     def test_whoami(self, runner: CliRunner, cli_app):
-        respx.get(f"{BASE_URL}/instances").mock(
-            return_value=httpx.Response(200, json={"data": []})
-        )
+        respx.get(f"{BASE_URL}/instances").mock(return_value=httpx.Response(200, json={"data": []}))
         result = runner.invoke(cli_app, ["whoami"])
         assert result.exit_code == 0
         assert "valid" in result.output.lower()

@@ -14,6 +14,7 @@ uv pip install -e '.[dev]'
 ## Checks to run before opening a PR
 
 ```bash
+uv run ruff format src tests
 uv run ruff check --fix src tests
 uv run pytest --cov
 ```

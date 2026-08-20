@@ -101,9 +101,7 @@ def instances_table(instances: list[Instance]) -> Table:
     table.add_column("IP")
     table.add_column("PRICE/H", justify="right")
     for instance in instances:
-        price = (
-            f"${instance.instance_type.price_per_hour:.2f}" if instance.instance_type else "-"
-        )
+        price = f"${instance.instance_type.price_per_hour:.2f}" if instance.instance_type else "-"
         table.add_row(
             instance.id,
             instance.name or "-",
