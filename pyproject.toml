@@ -1,5 +1,5 @@
 [project]
-name = "lambda-cloud"
+name = "lcloud-cli"
 version = "0.1.0"
 description = "Unofficial community command-line interface for the Lambda Cloud API"
 readme = "README.md"
